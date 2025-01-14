@@ -107,7 +107,7 @@ export default function Game() {
     }
 
     return (
-      <li key={move}>
+      <li key={move.toString()}> {/* Aquí, aseguramos que "move" es una clave única */}
         <button onClick={() => jumpTo(move)}>{description}</button>
       </li>
     );
@@ -128,11 +128,6 @@ export default function Game() {
   );
 }
 
-// Añadimos validación de las props
-Game.propTypes = {
-  history: PropTypes.arrayOf(PropTypes.array).isRequired,
-  currentMove: PropTypes.number.isRequired,
-};
 
 // Función para calcular el ganador
 function calculateWinner(squares) {
@@ -147,8 +142,8 @@ function calculateWinner(squares) {
     [2, 4, 6],
   ];
 
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
+  // Usamos el for-of loop
+  for (const [a, b, c] of lines) {
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
     }
